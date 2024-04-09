@@ -1,0 +1,48 @@
+nav {
+  padding: 1rem 3rem;
+  border-bottom: 2px solid black;
+  background-color: var(--white);
+}
+
+nav ul {
+  display: flex;
+  list-style-type: none;
+}
+
+ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.marca {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  color: var(--primary-green);
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.log,
+.reg {
+  border: 2px solid var(--primary-green);
+  width: 170px;
+  padding: 0.5rem 0;
+  text-align: center;
+  border-radius: 5px;
+  color: black;
+  background-color: #22222200;
+  font-weight: 600;
+  color: var(--primary-green);
+  cursor: pointer;
+}
+
+.reg {
+  border: 2px solid var(--accent-orange);
+  color: var(--accent-orange);
+}

@@ -1,0 +1,81 @@
+main {
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url(../../../assets/images/background.svg);
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+.login {
+  background-color: var(--primary-green);
+  padding: 3rem;
+  border-radius: 7px;
+  border: 2px solid var(--white);
+}
+
+.logo {
+  display: flex;
+  gap: 1rem;
+  color: var(--white);
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.logo img {
+  width: 30px;
+  height: 36px;
+  filter: drop-shadow(0px 0px 2px #22222277);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  color: var(--white);
+  font-weight: 500;
+  gap: 1rem;
+
+  & .buttons {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  & input {
+    padding: 0.7rem;
+    border: none;
+    border-radius: 5px;
+  }
+
+  & input::placeholder {
+    opacity: .3;
+    font-weight: 400;
+  }
+}
+
+.log,
+.reg {
+  padding: 0.7rem;
+  border: 2px solid var(--white);
+  width: 170px;
+  border-radius: 5px;
+  color: black;
+  background-color: #22222200;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  color: var(--white);
+  cursor: pointer;
+}
+
+.reg {
+  border: 2px solid var(--secondary-green);
+  color: var(--secondary-green);
+}

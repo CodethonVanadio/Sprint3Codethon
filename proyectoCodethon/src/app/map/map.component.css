@@ -1,0 +1,13 @@
+body {
+  height: 100vh;
+  background-image: url(../../assets/images/image\ 7.png);
+}
+main {
+  position: relative;
+}
+
+.aside {
+  position: absolute;
+  left: 2rem;
+  bottom: -39rem;
+}
