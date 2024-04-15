@@ -1,7 +1,10 @@
 nav {
   padding: 1rem 3rem;
-  border-bottom: 2px solid black;
+  border: 0;
   background-color: var(--white);
+  position: fixed;
+  z-index: 100;
+  width: 100%;
 }
 
 nav ul {
@@ -31,8 +34,7 @@ ul {
 .log,
 .reg {
   border: 2px solid var(--primary-green);
-  width: 170px;
-  padding: 0.5rem 0;
+  padding: 0.5rem 3rem;
   text-align: center;
   border-radius: 5px;
   color: black;
@@ -45,4 +47,10 @@ ul {
 .reg {
   border: 2px solid var(--accent-orange);
   color: var(--accent-orange);
+}
+
+.log:hover,
+.reg:hover {
+  border: 2px solid var(--secondary-green);
+  color: var(--secondary-green);
 }

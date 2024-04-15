@@ -1,13 +1,25 @@
 body {
   height: 100vh;
-  background-image: url(../../assets/images/image\ 7.png);
+  overflow: hidden;
+  /* background-image: url(../../assets/images/image\ 7.png); */
 }
 main {
   position: relative;
+  height: 100vh;
 }
 
 .aside {
   position: absolute;
   left: 2rem;
-  bottom: -39rem;
+  bottom: 2rem;
+}
+
+.map {
+  height: 100%;
+}
+
+iframe {
+  border: 0;
+  height: 100%;
+  width: 100%;
 }
