@@ -10,7 +10,6 @@ nav {
 nav ul {
   display: flex;
   list-style-type: none;
-  align-items: center;
 }
 
 ul {
@@ -24,16 +23,13 @@ ul {
   gap: 1rem;
   align-items: center;
   color: var(--primary-green);
+
 }
 nav ul .marca a h3 {
   color: var(--primary-green) !important;
 }
 
-.buttons {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-}
+
 
 .log,
 .reg {
@@ -46,17 +42,6 @@ nav ul .marca a h3 {
   font-weight: 600;
   color: var(--primary-green);
   cursor: pointer;
-}
-
-.reg {
-  border: 2px solid var(--accent-orange);
-  color: var(--accent-orange);
-}
-
-.log:hover,
-.reg:hover {
-  border: 2px solid var(--accent-orange);
-  color: var(--accent-orange);
 }
 
 h3 {

@@ -14,12 +14,13 @@ main {
   bottom: 2rem;
 }
 
-.map {
-  height: 100%;
+#map {
+  border: 0;
+  height: 90%;
+  width: 100%;
+  top: 10%;
 }
 
-iframe {
-  border: 0;
-  height: 100%;
-  width: 100%;
+.aside {
+  z-index: 9999;
 }

@@ -73,9 +73,18 @@ form {
   font-weight: 600;
   color: var(--white);
   cursor: pointer;
+  margin: auto;
 }
 
 .reg {
-  border: 2px solid var(--secondary-green);
-  color: var(--secondary-green);
+  border: 2px solid var(--white);
+  color: var(--white);
+}
+.log:hover,
+.reg:hover {
+  border: 2px solid var(--accent-orange);
+  color: var(--accent-orange);
+}
+div a:hover{
+  color: var(--accent-orange);
 }

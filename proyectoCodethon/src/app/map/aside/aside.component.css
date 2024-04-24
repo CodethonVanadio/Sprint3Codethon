@@ -1,9 +1,9 @@
 main {
-  background-color: var(--primary-green);
   padding: 2rem 3rem;
   border-radius: 7px;
   border: 2px solid var(--white);
   color: var(--white);
+  backdrop-filter: blur(15px);
 }
 hr {
   border: 1px solid var(--white);
@@ -28,25 +28,26 @@ ul {
 .closestCharger,
 .startRoute {
   text-decoration: none;
-  color: var(--white);
+  color: var(--secondary-green);
   width: 250px;
-  border: 2px solid var(--white);
+  border: 2px solid var(--secondary-green);
   border-radius: 5px;
   padding: 0.5rem;
   text-align: center;
   font-weight: 600;
+  margin: auto;
   /*   filter: drop-shadow(0px 0px 1px  rgb(253, 252, 252)); */
 }
 
 .closestCharger {
-  color: var(--accent-orange);
-  border: 2px solid var(--accent-orange);
+  color: var(--secondary-green);
+  border: 2px solid var(--secondary-green);
 }
 
 .closestCharger:hover,
 .startRoute:hover {
-  color: var(--secondary-green);
-  border: 2px solid var(--secondary-green);
+  color: var(--accent-orange);
+  border: 2px solid var(--accent-orange);
 }
 
 hr {
@@ -57,8 +58,10 @@ hr {
 
 h2,
 .ubi {
-  border-bottom: 2px solid var(--white);
+  border-bottom: 2px solid var(--secondary-green);
   padding: 7px 0;
+  text-align: center;
+  color: var(--secondary-green);
 }
 
 .ubi {
@@ -67,7 +70,7 @@ h2,
 }
 
 li {
-  border-bottom: 2px solid var(--white);
+  border-bottom: 2px solid var(--secondary-green);
   padding: 3px 0;
   display: flex;
   justify-content: space-between;
@@ -88,15 +91,20 @@ i {
 }
 
 a {
-  color: var(--white);
+  color: var(--secondary-green);
 }
 
 input {
   border: 0;
-  background-color: var(--primary-green);
+  background-color: transparent;
   width: 80%;
+  backdrop-filter: blur(5px);
 }
 
 input:focus {
   outline: none;
+}
+
+li a {
+  color: var(--secondary-green);
 }
