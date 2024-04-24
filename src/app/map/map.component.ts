@@ -13,6 +13,8 @@ import * as L from 'leaflet';
 })
 export class MapComponent implements OnInit {
   map: any;
+  longitud: any;
+  latitude: any;
 
   constructor() {}
 
@@ -84,31 +86,36 @@ export class MapComponent implements OnInit {
     };
 
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const latitude = position.coords.latitude;
+          this.latitude = latitude;
+          const longitude = position.coords.longitude;
+          this.longitud = longitude;
 
-    this.map = L.map('map')
-      .setView([latitude, longitude], 13)
-      .addLayer(baseMapLayer);
+          this.map = L.map('map')
+            .setView([latitude, longitude], 13)
+            .addLayer(baseMapLayer);
 
-    L.control
-      .layers(baseMaps, overlays, {
-        collapsed: false,
-        // (Optional) The css class(es) used to indicated the group is expanded
-        // (Optional) The css class(es) used to indicated the group is collapsed
-      })
-      .addTo(this.map);
+          L.control
+            .layers(baseMaps, overlays, {
+              collapsed: false,
+              // (Optional) The css class(es) used to indicated the group is expanded
+              // (Optional) The css class(es) used to indicated the group is collapsed
+            })
+            .addTo(this.map);
 
-    L.marker([latitude, longitude], { icon: customIcon })
-      .addTo(this.map)
-      .bindPopup('Usted se encuentra aquí')
-      .openPopup();
-    }, error => {
-      console.error('Error al obtener la ubicación del usuario:', error);
-    });
-  } else {
-    console.error('Geolocalización no es compatible con este navegador.');
+          L.marker([latitude, longitude], { icon: customIcon })
+            .addTo(this.map)
+            .bindPopup('Usted se encuentra aquí')
+            .openPopup();
+        },
+        (error) => {
+          console.error('Error al obtener la ubicación del usuario:', error);
+        }
+      );
+    } else {
+      console.error('Geolocalización no es compatible con este navegador.');
+    }
   }
-}
 }
