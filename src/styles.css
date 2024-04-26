@@ -74,3 +74,10 @@ h6 {
 a {
   text-decoration: none;
 }
+
+.infoCharger{
+
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  }
