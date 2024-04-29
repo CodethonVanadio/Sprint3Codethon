@@ -18,6 +18,7 @@ export class MapComponent implements OnInit {
   latitude: any;
   taxiIcon: any;
   marker: any;
+  searchLocation: any;
 
   constructor() {}
 
@@ -101,7 +102,6 @@ export class MapComponent implements OnInit {
             const newMarker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(
               this.map
             );
-
             L.Routing.control({
               waypoints: [
                 L.latLng(this.latitude, this.longitud),
@@ -120,6 +120,7 @@ export class MapComponent implements OnInit {
               })
               .addTo(this.map);
           });
+
         },
         (error) => {
           console.error('Error al obtener la ubicación del usuario:', error);
