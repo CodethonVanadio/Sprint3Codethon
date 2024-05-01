@@ -1,18 +1,37 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { AppComponent } from '../../app.component';
+import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { AuthServiceService } from '../../auth-service.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [AppComponent],
+  imports: [AppComponent, FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  @Input() user: any = '';
-  @Input() pass: any = '';
+  username: string = '';
+  password: string = '';
+  userLogged: boolean = false;
+  tipoCoche: string = ' ';
 
-  alertMessage() {
-    alert('cuidao!');
+  constructor(
+    private authService: AuthServiceService,
+    private router: Router
+  ) {}
+
+  onSubmit(): void {
+    if (this.authService.authenticate(this.username, this.password)) {
+      this.userLogged = true;
+      if (this.userLogged) {
+        this.authService.tipoCoche = this.tipoCoche = 'Opel Corsa';
+        this.router.navigate(['/map']);
+      }
+    } else if(!this.userLogged){
+      this.authService.tipoCoche = this.tipoCoche = 'Coche no seleccionado';
+      alert('Credenciales incorrectas');
+    }
   }
 }

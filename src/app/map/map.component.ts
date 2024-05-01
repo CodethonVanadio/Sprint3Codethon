@@ -79,7 +79,7 @@ export class MapComponent implements OnInit {
             console.log(use);
 
             if (use === '' || use === undefined || use === 'Desconocido') {
-              use = 'me comes los cojones';
+              use = 'Coste desconocido';
             } else use = objeto.UsageCost;
             L.marker(
               [objeto.AddressInfo.Latitude, objeto.AddressInfo.Longitude],

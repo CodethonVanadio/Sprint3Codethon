@@ -1,6 +1,12 @@
 <main>
   <hr />
-  <h2>Opel Corsa 2003</h2>
+
+  <h4>
+    <ng-container *ngIf="this.isLogged; else noCarAvailable">
+      {{ tipoCoche }}
+    </ng-container>
+    <ng-template #noCarAvailable> Coche no disponible </ng-template>
+  </h4>
 
   <div class="pathing">
     <div class="ubi">
