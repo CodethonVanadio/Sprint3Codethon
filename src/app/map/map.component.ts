@@ -146,12 +146,13 @@ export class MapComponent implements OnInit {
                 console.log(routes);
                 const name = routes[0].name;
                 this.nombreCalle = name;
-                this.routes = routes;
+
                 console.log(name);
                 const distance = routes[0].summary.totalDistance;
                 console.log(distance);
 
                 e.routes[0].coordinates.forEach((coord: any, index: any) => {
+                  this.routes = routes;
                   setTimeout(() => {
                     this.marker.setLatLng([coord.lat, coord.lng], {
                       draggable: true,
