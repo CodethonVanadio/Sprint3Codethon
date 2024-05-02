@@ -72,6 +72,9 @@ h2,
 li {
   border-bottom: 2px solid var(--secondary-green);
   padding: 3px 0;
+  margin-left: -2rem;
+  font-size: 12px;
+  text-wrap: wrap;
 }
 
 .ubi a {
