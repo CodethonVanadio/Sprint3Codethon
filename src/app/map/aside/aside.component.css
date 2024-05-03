@@ -72,8 +72,9 @@ h4,
 li {
   border-bottom: 2px solid var(--secondary-green);
   padding: 3px 0;
-  display: flex;
-  justify-content: space-between;
+  margin-left: -2rem;
+  font-size: 12px;
+  text-wrap: wrap;
 }
 
 .ubi a {

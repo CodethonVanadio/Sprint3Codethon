@@ -9,10 +9,10 @@ import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-example',
-  template: '<p>Example Component</p>'
+  template: '<p>Example Component</p>',
 })
 export class ExampleComponent implements OnInit {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
     // Llamar al método getAddressFromCoordinates cuando se inicia el componente
@@ -43,7 +43,8 @@ export class MapComponent implements OnInit {
   markers: Marker[] = [];
   marker: any;
   searchLocation: any;
-
+  nombreCalle: any;
+  routes: any;
 
   constructor() {}
 
@@ -93,7 +94,7 @@ export class MapComponent implements OnInit {
             popupAnchor: [0, -16],
           });
 
-          L.marker([latitude, longitude], { icon: customIcon})
+          L.marker([latitude, longitude], { icon: customIcon })
             .addTo(this.map)
             .bindPopup('Usted se encuentra aquí')
             .openPopup();
@@ -109,7 +110,7 @@ export class MapComponent implements OnInit {
             } else use = objeto.UsageCost;
             L.marker(
               [objeto.AddressInfo.Latitude, objeto.AddressInfo.Longitude],
-              { icon: iconCharger }
+              { icon: iconCharger, draggable: true }
             ) // Usar las propiedades Latitude y Longitude del objeto
               .addTo(this.map)
               .bindPopup(
@@ -124,11 +125,11 @@ export class MapComponent implements OnInit {
 
           this.map.on('click', (e: any) => {
             console.log(e);
-            const newMarker = L.marker([e.latlng.lat, e.latlng.lng], {draggable: true}).addTo(
-              this.map
-            );
+            const newMarker = L.marker([e.latlng.lat, e.latlng.lng], {
+              draggable: true,
+            }).addTo(this.map);
             this.markers.push(newMarker);
-            
+
             newMarker.on('dragend', (event) => {
               const latlng = event.target.getLatLng();
               newMarker.setLatLng(latlng);
@@ -141,17 +142,28 @@ export class MapComponent implements OnInit {
             })
               .on('routesfound', (e: any) => {
                 const routes = e.routes;
+
                 console.log(routes);
+                const name = routes[0].name;
+                this.nombreCalle = name;
+
+                console.log(name);
+                const distance = routes[0].summary.totalDistance;
+                console.log(distance);
 
                 e.routes[0].coordinates.forEach((coord: any, index: any) => {
+                  this.routes = routes;
                   setTimeout(() => {
-                    this.marker.setLatLng([coord.lat, coord.lng], {draggable: true});
+                    this.marker.setLatLng([coord.lat, coord.lng], {
+                      draggable: true,
+                    });
                   }, 100 * index);
                 });
               })
               .addTo(this.map);
+            this.markers.push(newMarker);
+            console.log(this.markers);
           });
-
         },
         (error) => {
           console.error('Error al obtener la ubicación del usuario:', error);

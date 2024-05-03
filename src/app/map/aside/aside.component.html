@@ -18,8 +18,17 @@
       <a href=""><i class="bi bi-arrow-90deg-up arrow"></i></a>
     </div>
     <ul>
-      <li>
-        <input type="text" placeholder="Parada 1" />
+      <li *ngFor="let calle of routes; let i = index; let isFirst = first">
+        <input type="text" [value]="calle.name" />
+      </li>
+      >
+
+      <!--
+        <input
+          type="text"
+          placeholder="{{ nombreCalle }}"
+          value="{{ nombreCalle }}"
+        />
         <a href=""><i class="bi bi-node-minus"></i></a>
       </li>
       <li>
@@ -29,7 +38,7 @@
       <li>
         <input type="text" placeholder="Parada 3" />
         <a href=""><i class="bi bi-node-minus"></i></a>
-      </li>
+      </li> -->
     </ul>
 
     <div class="plus">
