@@ -4,6 +4,29 @@ import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 import { AsideComponent } from './aside/aside.component';
 import axios from 'axios';
+import { latLng, MapOptions, tileLayer, marker, Marker } from 'leaflet';
+import { HttpClient } from '@angular/common/http';
+
+@Component({
+  selector: 'app-example',
+  template: '<p>Example Component</p>'
+})
+export class ExampleComponent implements OnInit {
+  constructor(private http: HttpClient) { }
+
+  ngOnInit(): void {
+    // Llamar al método getAddressFromCoordinates cuando se inicia el componente
+    this.getAddressFromCoordinates(37.7749, -122.4194);
+  }
+
+  getAddressFromCoordinates(lat: number, lng: number) {
+    const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`;
+    this.http.get(url).subscribe((response: any) => {
+      const address = response.display_name;
+      console.log('Ubicación:', address);
+    });
+  }
+}
 
 @Component({
   selector: 'app-map',
@@ -17,7 +40,10 @@ export class MapComponent implements OnInit {
   longitud: any;
   latitude: any;
   taxiIcon: any;
+  markers: Marker[] = [];
   marker: any;
+  searchLocation: any;
+
 
   constructor() {}
 
@@ -67,7 +93,7 @@ export class MapComponent implements OnInit {
             popupAnchor: [0, -16],
           });
 
-          L.marker([latitude, longitude], { icon: customIcon })
+          L.marker([latitude, longitude], { icon: customIcon})
             .addTo(this.map)
             .bindPopup('Usted se encuentra aquí')
             .openPopup();
@@ -98,10 +124,15 @@ export class MapComponent implements OnInit {
 
           this.map.on('click', (e: any) => {
             console.log(e);
-            const newMarker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(
+            const newMarker = L.marker([e.latlng.lat, e.latlng.lng], {draggable: true}).addTo(
               this.map
             );
-
+            this.markers.push(newMarker);
+            
+            newMarker.on('dragend', (event) => {
+              const latlng = event.target.getLatLng();
+              newMarker.setLatLng(latlng);
+            });
             L.Routing.control({
               waypoints: [
                 L.latLng(this.latitude, this.longitud),
@@ -114,12 +145,13 @@ export class MapComponent implements OnInit {
 
                 e.routes[0].coordinates.forEach((coord: any, index: any) => {
                   setTimeout(() => {
-                    this.marker.setLatLng([coord.lat, coord.lng]);
+                    this.marker.setLatLng([coord.lat, coord.lng], {draggable: true});
                   }, 100 * index);
                 });
               })
               .addTo(this.map);
           });
+
         },
         (error) => {
           console.error('Error al obtener la ubicación del usuario:', error);
