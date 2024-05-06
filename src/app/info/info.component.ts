@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
+import { ChargingStationComponent } from '../charging-station/charging-station.component';
+import { HeaderComponent } from '../map/header/header.component';
 
 @Component({
   selector: 'app-info',
   standalone: true,
-  imports: [],
+  imports: [ChargingStationComponent],
   templateUrl: './info.component.html',
-  styleUrl: './info.component.css'
+  styleUrl: './info.component.css',
 })
-export class InfoComponent {
-
-}
+export class InfoComponent {}
