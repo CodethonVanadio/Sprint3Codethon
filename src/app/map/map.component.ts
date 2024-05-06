@@ -39,10 +39,10 @@ export class ExampleComponent implements OnInit {
 })
 export class MapComponent implements OnInit {
   map: any;
-  longitud: any;
-  latitud: any;
-  longitud2: any;
-  latitud2: any;
+  longitud: any = -3.684;
+  latitud: any = 40.4172;
+  longitud2: any = -3.9249;
+  latitud2: any = -3.9249;
   taxiIcon: any;
   markers: Marker[] = [];
   marker: any;
@@ -57,45 +57,30 @@ export class MapComponent implements OnInit {
   ngOnInit(): void {
     this.initMap();
     this.fetchPosts();
-
-    /*    axios.get('http://localhost:8989/saludo').then(function (response) {
-      console.log(response);
-    }); */
-  }
-
-  getLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          this.latitud = position.coords.latitude;
-          this.longitud = position.coords.longitude;
-          this.updateMapAndData();
-        },
-        (error) => {
-          console.error('Error al obtener la ubicación del usuario:', error);
-        }
-      );
-    } else {
-      console.error('Geolocalización no es compatible con este navegador.');
-    }
   }
 
   updateMapAndData() {}
 
   fetchPosts() {
-    const bbox = `(${this.latitud},${this.longitud}),(${this.latitud -20},${this.longitud -20})`;
-    const url = `https://api.openchargemap.io/v3/poi/?client=ocm.app.ionic.8.6.1&verbose=false&output=json&includecomments=true&maxresults=40&compact=true&boundingbox=(${this.latitud},${this.longitud}),(${this.latitud -20},${this.longitud -20})&key=53f3079e-75c6-40eb-bc30-8b8792c9602f`;
+    const bbox = `(${this.latitud},${this.longitud}),(${this.latitud - 20},${
+      this.longitud - 20
+    })`;
+    const url = `https://api.openchargemap.io/v3/poi/?client=ocm.app.ionic.8.6.1&verbose=false&output=json&includecomments=true&maxresults=40&compact=true&boundingbox=(${this.latitud},${this.longitud}),(${this.latitud2},${this.longitud2})&key=53f3079e-75c6-40eb-bc30-8b8792c9602f`;
 
     axios
       .get(url)
       .then((response) => {
         console.log(response.data);
-        this.chargingStations = response.data; // Ensure you're accessing the correct array
+        this.chargingStations = response.data;
       })
       .catch((error) => {
         console.error('Error fetching posts:', error);
-        // Handle the error appropriately, e.g., show a message to the user
       });
+
+    console.log(this.latitud2);
+    console.log(this.longitud2);
+    console.log(this.longitud);
+    console.log(this.longitud);
   }
   initMap(): void {
     const baseMapLayer = L.tileLayer(
@@ -117,8 +102,8 @@ export class MapComponent implements OnInit {
           const longitude = position.coords.longitude;
           this.longitud = longitude;
 
-          this.longitud2 = this.latitud + 20;
-          this.latitud2 = this.longitud - 20;
+          /*     this.longitud2 = this.latitud + 20;
+          this.latitud2 = this.longitud - 20; */
 
           this.map = L.map('map')
             .setView([latitude, longitude], 13)
