@@ -81,7 +81,7 @@ export class MapComponent implements OnInit {
             popupAnchor: [0, -16],
           });
 
-          L.marker([station.latitud, station.longitud], {
+          const marker = L.marker([station.latitud, station.longitud], {
             icon: iconCharger,
             draggable: false,
           })
@@ -139,7 +139,10 @@ export class MapComponent implements OnInit {
             popupAnchor: [0, -16],
           });
 
-          L.marker([latitude, longitude], { icon: customIcon })
+          L.marker([latitude, longitude], {
+            icon: customIcon,
+            draggable: false,
+          })
             .addTo(this.map)
             .bindPopup('Usted se encuentra aquí')
             .openPopup();
@@ -147,7 +150,7 @@ export class MapComponent implements OnInit {
           this.map.on('click', (e: any) => {
             console.log(e);
             const newMarker = L.marker([e.latlng.lat, e.latlng.lng], {
-              draggable: true,
+              draggable: false,
             }).addTo(this.map);
 
             this.markers.push(newMarker);
