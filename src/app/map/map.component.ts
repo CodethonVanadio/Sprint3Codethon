@@ -17,7 +17,6 @@ export class ExampleComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    // Llamar al método getAddressFromCoordinates cuando se inicia el componente
     this.getAddressFromCoordinates(37.7749, -122.4194);
   }
 
@@ -33,38 +32,33 @@ export class ExampleComponent implements OnInit {
 @Component({
   selector: 'app-map',
   standalone: true,
-  imports: [AsideComponent, HeaderComponent, ChargingStationComponent],
+  imports: [AsideComponent, ChargingStationComponent, HeaderComponent],
   templateUrl: './map.component.html',
   styleUrl: './map.component.css',
 })
 export class MapComponent implements OnInit {
   map: any;
-  longitud: any = -3.684;
-  latitud: any = 40.4172;
+  longitud: any = 0;
+  latitud: any = 0;
   longitud2: any = -3.9249;
   latitud2: any = -3.9249;
   taxiIcon: any;
   markers: Marker[] = [];
-  marker: any;
+  marker: any = L.marker([0, 0]);
   searchLocation: any;
   nombreCalle: any;
   routes: any;
   chargingStations: any[] = [];
   use: any = 0;
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
     this.initMap();
-    this.fetchPosts();
   }
 
-  updateMapAndData() {}
-
   fetchPosts() {
-    const bbox = `(${this.latitud},${this.longitud}),(${this.latitud - 20},${
-      this.longitud - 20
-    })`;
+    const bbox = `(${this.latitud},${this.longitud}),(${this.latitud2},${this.longitud2})`;
     const url = `https://api.openchargemap.io/v3/poi/?client=ocm.app.ionic.8.6.1&verbose=false&output=json&includecomments=true&maxresults=40&compact=true&boundingbox=(${this.latitud},${this.longitud}),(${this.latitud2},${this.longitud2})&key=53f3079e-75c6-40eb-bc30-8b8792c9602f`;
 
     axios
@@ -77,11 +71,46 @@ export class MapComponent implements OnInit {
         console.error('Error fetching posts:', error);
       });
 
-    console.log(this.latitud2);
-    console.log(this.longitud2);
-    console.log(this.longitud);
-    console.log(this.longitud);
+    this.chargingStations.forEach((station: any) => {
+      let use: string;
+      if (
+        station.UsageCost === '' ||
+        station.UsageCost === undefined ||
+        station.UsageCost === 'Desconocido'
+      ) {
+        use = 'Coste desconocido';
+      } else {
+        use = station.UsageCost;
+      }
+
+      console.log(station.AddressInfo.Latitude);
+      console.log(station.AddressInfo.Longitude);
+
+      const iconCharger = L.icon({
+        iconUrl: '../../../assets/images/charging-station.png',
+        iconSize: [40, 40],
+        iconAnchor: [16, 16],
+        popupAnchor: [0, -16],
+      });
+
+      L.marker([station.AddressInfo.Latitude, station.AddressInfo.Longitude], {
+        icon: iconCharger,
+        draggable: true,
+      })
+        .addTo(this.map)
+        .bindPopup(
+          `<div class="infoCharger" style="color: red">
+                        <h3>Nombre :</h3> ${station.AddressInfo.Title}
+                        <h3>Coste de uso:</h3> ${use}
+                        <h3>Dirección:</h3> ${station.AddressInfo.AddressLine1}
+                    </div>`
+        )
+        .openPopup();
+
+      console.log(station.AddressInfo.Latitude);
+    });
   }
+
   initMap(): void {
     const baseMapLayer = L.tileLayer(
       'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -102,23 +131,20 @@ export class MapComponent implements OnInit {
           const longitude = position.coords.longitude;
           this.longitud = longitude;
 
-          /*     this.longitud2 = this.latitud + 20;
-          this.latitud2 = this.longitud - 20; */
-
           this.map = L.map('map')
             .setView([latitude, longitude], 13)
             .addLayer(baseMapLayer);
 
+          this.fetchPosts();
+
+          console.log(this.latitud2);
+          console.log(this.longitud2);
+          console.log(this.longitud);
+          console.log(this.longitud);
+
           const customIcon = L.icon({
             iconUrl: '../../../assets/images/iconoCoche.png',
             iconSize: [48, 48],
-            iconAnchor: [16, 16],
-            popupAnchor: [0, -16],
-          });
-
-          const iconCharger = L.icon({
-            iconUrl: '../../../assets/images/charging-station.png',
-            iconSize: [40, 40],
             iconAnchor: [16, 16],
             popupAnchor: [0, -16],
           });
@@ -168,30 +194,6 @@ export class MapComponent implements OnInit {
               .addTo(this.map);
             this.markers.push(newMarker);
             console.log(this.markers);
-          });
-
-          this.chargingStations.forEach((station: any) => {
-            if (
-              this.use === '' ||
-              this.use === undefined ||
-              this.use === 'Desconocido'
-            ) {
-              this.use = 'Coste desconocido';
-            } else this.use = station.UsageCost;
-
-            L.marker(
-              [station.AddressInfo.Latitude, station.AddressInfo.Longitude],
-              { icon: iconCharger, draggable: true }
-            )
-              .addTo(this.map)
-              .bindPopup(
-                `<div class="infoCharger" style="color: red">
-               <h3>Nombre :</h3> ${station.AddressInfo.Title}
-               <h3>Coste de uso:</h3> ${this.use}
-               <h3>Dirección:</h3> ${station.AddressInfo.AddressLine1}
-             </div>`
-              )
-              .openPopup();
           });
         },
         (error) => {
