@@ -58,7 +58,7 @@ export class MapComponent implements OnInit {
   }
 
   fetchPosts(latOrig: any, lngOrig: any, latDes: any, lngDes: any) {
-    const bbox = `${latOrig},${lngOrig}),(${latDes},${lngDes}`;
+    /* const bbox = `${latOrig},${lngOrig}),(${latDes},${lngDes}`; */
     const url = `http://localhost:8989/saludo`;
     const urlWithParams = url.concat(
       `?latitudOrigen=${latOrig}
@@ -68,6 +68,21 @@ export class MapComponent implements OnInit {
     );
     // const url = `https://api.openchargemap.io/v3/poi/?client=ocm.app.ionic.8.6.1&verbose=false&output=json&includecomments=true&maxresults=40&compact=true&boundingbox=(${bbox})&key=53f3079e-75c6-40eb-bc30-8b8792c9602f`;
 
+    const Icon = {
+      iconUrl: '../../../assets/images/map-pin.svg',
+      shadowUrl: '../../../assets/images/map-pin.svg',
+      iconRetinaUrl: '../../../assets/images/map-pin.svg',
+
+      iconSize: [40, 40],
+      iconAnchor: [16, 16],
+      popupAnchor: [0, -16],
+      shadowSize: [40, 40],
+    };
+
+    L.icon.prototype = Icon;
+
+    L.Icon.Default.mergeOptions(Icon);
+
     axios
       .get(urlWithParams)
       .then((response) => {
@@ -75,7 +90,7 @@ export class MapComponent implements OnInit {
 
         stations.map((station: any) => {
           const iconCharger = L.icon({
-            iconUrl: '../../../assets/images/charging-station.png',
+            iconUrl: '../../../assets/images/ev-charge.svg',
             iconSize: [40, 40],
             iconAnchor: [16, 16],
             popupAnchor: [0, -16],
@@ -85,6 +100,7 @@ export class MapComponent implements OnInit {
             icon: iconCharger,
             draggable: false,
           })
+            .setIcon(iconCharger)
             .addTo(this.map)
             .bindPopup(
               `<div class="infoCharger" style="color: red">
@@ -134,6 +150,7 @@ export class MapComponent implements OnInit {
 
           const customIcon = L.icon({
             iconUrl: '../../../assets/images/iconoCoche.png',
+            /* shadowUrl: '../../../assets/images/mapArrow.svg', */
             iconSize: [48, 48],
             iconAnchor: [16, 16],
             popupAnchor: [0, -16],
@@ -146,10 +163,20 @@ export class MapComponent implements OnInit {
             .addTo(this.map)
             .bindPopup('Usted se encuentra aquí')
             .openPopup();
+          const markerIcon = L.icon({
+            iconUrl: '../../../assets/images/map-pin.svg',
+            shadowUrl: '../../../assets/images/map-pin.svg',
+            iconRetinaUrl: '../../../assets/images/map-pin.svg',
 
+            iconSize: [40, 40],
+            iconAnchor: [16, 16],
+            popupAnchor: [0, -16],
+            shadowSize: [40, 40],
+          });
           this.map.on('click', (e: any) => {
             console.log(e);
             const newMarker = L.marker([e.latlng.lat, e.latlng.lng], {
+              icon: markerIcon,
               draggable: false,
             }).addTo(this.map);
 
