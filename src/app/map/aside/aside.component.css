@@ -109,3 +109,21 @@ input:focus {
 li a {
   color: var(--secondary-green);
 }
+
+#searchLocation{
+  width: 100%;
+}
+
+#searchLocation li{
+  max-width: 400px;
+  color: black;
+  cursor: pointer;
+}
+
+#searchLocation li:hover{
+  font-weight: bold;
+}
+
+.parada input{
+  width: 100%;
+}

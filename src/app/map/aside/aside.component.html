@@ -13,7 +13,7 @@
       <input
         type="text"
         placeholder="Ubicación"
-        value="Tu Ubicacion"
+        [value]="nombreUbicacionActual"
         disabled
       />
       <a href=""><i class="bi bi-arrow-90deg-up arrow"></i></a>
@@ -43,6 +43,22 @@
         <a href=""><i class="bi bi-node-minus"></i></a>
       </li> -->
     </ul>
+
+    <input [(ngModel)]="query" (keyup.enter)="searchLocation(query)" placeholder="Añadir ubicación">
+
+    <!-- Resultados de la búsqueda -->
+    <div *ngIf="locations && locations.length > 0">
+      <ul id="searchLocation">
+        <li *ngFor="let ubicacion of locations" (click)="selectLocation(ubicacion.display_name)" (click)="searchLocation('')">
+          {{ ubicacion.display_name }}
+        </li>
+      </ul>
+    </div>
+
+    <!-- Campo de entrada deshabilitado con el valor seleccionado -->
+    <div class="parada" *ngFor="let location of selectedLocations; let i = index">
+      <input [value]="location" [disabled]="true" placeholder="Escribe aquí">
+    </div>
 
     <div class="plus">
       <a href=""><i class="bi bi-plus-circle"></i></a>
