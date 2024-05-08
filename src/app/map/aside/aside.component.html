@@ -13,15 +13,18 @@
       <input
         type="text"
         placeholder="Ubicación"
-        value="{{ latitud + ' , ' + longitud }}"
+        value="Tu Ubicacion"
+        disabled
       />
       <a href=""><i class="bi bi-arrow-90deg-up arrow"></i></a>
     </div>
     <ul>
-      <li *ngFor="let calle of routes; let i = index; let isFirst = first">
+      <!-- <li *ngFor="let calle of routes; let i = index; let isFirst = first">
         <input type="text" [value]="calle.name" />
+      </li> -->
+      <li *ngFor="let calle of routes; let i = index; let isFirst = first">
+        <input type="text" [value]="calle" disabled />
       </li>
-      >
 
       <!--
         <input

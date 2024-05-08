@@ -16,6 +16,8 @@ export class AsideComponent {
 
   @Input() longitud: any = '';
   @Input() latitud: any = '';
+  @Input() longitud2: any = '';
+  @Input() latitud2: any = '';
   @Input() nombreCalle: any = '';
   @Input() routes: any = '';
 
@@ -26,6 +28,4 @@ export class AsideComponent {
   get isLogged(): boolean {
     return this.sharedService.isLogged;
   }
-
 }
-

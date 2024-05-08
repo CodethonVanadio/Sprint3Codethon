@@ -1,0 +1,7 @@
+{
+  "/api": {
+    "target": "https://api.openchargemap.io/v3",
+    "changeOrigin": true,
+    "pathRewrite": { "^/api": "" }
+  }
+}
