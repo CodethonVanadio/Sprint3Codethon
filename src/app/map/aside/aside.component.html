@@ -1,29 +1,30 @@
 <main>
   <hr />
-  <h2>Opel Corsa 2003</h2>
+
+  <h4>
+    <ng-container *ngIf="this.isLogged; else noCarAvailable">
+      {{ tipoCoche }}
+    </ng-container>
+    <ng-template #noCarAvailable> Coche no disponible </ng-template>
+  </h4>
 
   <div class="pathing">
     <div class="ubi">
       <input
         type="text"
         placeholder="Ubicación"
-        value="{{ longitud + ' , ' + latitud }}"
+        value="Tu Ubicacion"
+        disabled
       />
       <a href=""><i class="bi bi-arrow-90deg-up arrow"></i></a>
     </div>
     <ul>
-      <li>
-        <input type="text" placeholder="Parada 1" />
-        <a href=""><i class="bi bi-node-minus"></i></a>
+
+      <li *ngFor="let calle of routes; let i = index; let isFirst = first">
+        <input type="text" [value]="calle" disabled />
       </li>
-      <li>
-        <input type="text" placeholder="Parada 1" />
-        <a href=""><i class="bi bi-node-minus"></i></a>
-      </li>
-      <li>
-        <input type="text" placeholder="Parada 1" />
-        <a href=""><i class="bi bi-node-minus"></i></a>
-      </li>
+
+    
     </ul>
 
     <div class="plus">

@@ -8,11 +8,13 @@ export const routes: Routes = [
     path: 'login',
     component: HomeComponent,
   },
-  { path: 'info',
-  component: InfoComponent
-  },
+  { path: 'info', component: InfoComponent },
   {
     path: '',
+    component: MapComponent,
+  },
+  {
+    path: 'map',
     component: MapComponent,
   },
 ];

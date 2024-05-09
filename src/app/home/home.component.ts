@@ -6,8 +6,6 @@ import { LoginComponent } from './login/login.component';
   standalone: true,
   imports: [LoginComponent],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
 })
-export class HomeComponent {
-
-}
+export class HomeComponent {}
