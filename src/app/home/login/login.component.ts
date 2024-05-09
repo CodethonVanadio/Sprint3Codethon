@@ -26,10 +26,10 @@ export class LoginComponent {
     if (this.authService.authenticate(this.username, this.password)) {
       this.userLogged = true;
       if (this.userLogged) {
-        this.authService.tipoCoche = this.tipoCoche = 'Opel Corsa';
+        this.authService.tipoCoche = this.tipoCoche = 'Kia e-Niro';
         this.router.navigate(['/map']);
       }
-    } else if(!this.userLogged){
+    } else if (!this.userLogged) {
       this.authService.tipoCoche = this.tipoCoche = 'Coche no seleccionado';
       alert('Credenciales incorrectas');
     }

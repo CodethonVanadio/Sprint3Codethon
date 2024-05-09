@@ -58,7 +58,6 @@ export class MapComponent implements OnInit {
   }
 
   fetchPosts(latOrig: any, lngOrig: any, latDes: any, lngDes: any) {
-    /* const bbox = `${latOrig},${lngOrig}),(${latDes},${lngDes}`; */
     const url = `https://backend-tzzg.onrender.com/saludo`;
     const urlWithParams = url.concat(
       `?latitudOrigen=${latOrig}
@@ -66,7 +65,6 @@ export class MapComponent implements OnInit {
       &latitudDestino=${latDes}
       &longitudDestino=${lngDes}`
     );
-    // const url = `https://api.openchargemap.io/v3/poi/?client=ocm.app.ionic.8.6.1&verbose=false&output=json&includecomments=true&maxresults=40&compact=true&boundingbox=(${bbox})&key=53f3079e-75c6-40eb-bc30-8b8792c9602f`;
 
     const Icon = {
       iconUrl: '../../../assets/images/map-pin.svg',
