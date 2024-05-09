@@ -1,13 +1,12 @@
 import { HeaderComponent } from './header/header.component';
 import { Component, OnInit } from '@angular/core';
-import * as L from 'leaflet';
+declare const L: any;
+import 'leaflet';
 import 'leaflet-routing-machine';
 import { AsideComponent } from './aside/aside.component';
 import axios from 'axios';
-import { Marker } from 'leaflet';
 import { HttpClient } from '@angular/common/http';
 import { ChargingStationComponent } from '../charging-station/charging-station.component';
-import { Input } from '@angular/core';
 
 @Component({
   selector: 'app-example',
@@ -43,7 +42,7 @@ export class MapComponent implements OnInit {
   longitud2: any = 0;
   latitud2: any = 0;
   taxiIcon: any;
-  markers: Marker[] = [];
+  markers: L.Marker[] = [];
   marker: any = L.marker([0, 0]);
   searchLocation: any;
   nombreCalle: any;
@@ -66,21 +65,6 @@ export class MapComponent implements OnInit {
       &longitudDestino=${lngDes}`
     );
 
-    const Icon = {
-      iconUrl: '../../../assets/images/map-pin.svg',
-      shadowUrl: '../../../assets/images/map-pin.svg',
-      iconRetinaUrl: '../../../assets/images/map-pin.svg',
-
-      iconSize: [40, 40],
-      iconAnchor: [16, 16],
-      popupAnchor: [0, -16],
-      shadowSize: [40, 40],
-    };
-
-    L.icon.prototype = Icon;
-
-    L.Icon.Default.mergeOptions(Icon);
-
     axios
       .get(urlWithParams)
       .then((response) => {
@@ -88,7 +72,7 @@ export class MapComponent implements OnInit {
 
         stations.map((station: any) => {
           const iconCharger = L.icon({
-            iconUrl: '../../../assets/images/logo.png',
+            iconUrl: '../../../assets/images/charging-station.png',
             iconSize: [35, 35],
             iconAnchor: [16, 16],
             popupAnchor: [0, -16],
@@ -163,11 +147,9 @@ export class MapComponent implements OnInit {
             .openPopup();
           const markerIcon = L.icon({
             iconUrl: '../../../assets/images/map-pin.svg',
-            shadowUrl: '../../../assets/images/map-pin.svg',
-            iconRetinaUrl: '../../../assets/images/map-pin.svg',
 
             iconSize: [40, 40],
-            iconAnchor: [16, 16],
+            iconAnchor: [10, 40],
             popupAnchor: [0, -16],
             shadowSize: [40, 40],
           });
@@ -180,15 +162,24 @@ export class MapComponent implements OnInit {
 
             this.markers.push(newMarker);
 
-            newMarker.on('dragend', (event) => {
+            newMarker.on('dragend', (event: any) => {
               const latlng = event.target.getLatLng();
               newMarker.setLatLng(latlng);
             });
+
+            console.log('No va');
+            console.log(L, 'hola');
+            console.log(L.Routing, 'hola');
+            console.log(L.Routing.control, 'hola 2');
+
             L.Routing.control({
               waypoints: [
                 L.latLng(this.latitud, this.longitud),
                 L.latLng(e.latlng.lat, e.latlng.lng),
               ],
+              createMarker: function () {
+                return null;
+              },
             })
               .on('routesfound', (e: any) => {
                 const route = e.routes[0];
@@ -205,19 +196,6 @@ export class MapComponent implements OnInit {
                 // console.log(routes);
                 const name = route.name;
                 this.routes.push(name);
-
-                // console.log(name);
-                // const distance = routes[0].summary.totalDistance;
-                // console.log(distance);
-
-                // e.routes[0].coordinates.forEach((coord: any, index: any) => {
-                //   this.routes = routes;
-                //   setTimeout(() => {
-                //     this.marker.setLatLng([coord.lat, coord.lng], {
-                //       draggable: true,
-                //     });
-                //   }, 100 * index);
-                // });
               })
               .addTo(this.map);
             this.markers.push(newMarker);
