@@ -59,7 +59,7 @@ export class MapComponent implements OnInit {
 
   fetchPosts(latOrig: any, lngOrig: any, latDes: any, lngDes: any) {
     /* const bbox = `${latOrig},${lngOrig}),(${latDes},${lngDes}`; */
-    const url = `http://localhost:8989/saludo`;
+    const url = `https://backend-tzzg.onrender.com/saludo`;
     const urlWithParams = url.concat(
       `?latitudOrigen=${latOrig}
       &longitudOrigen=${lngOrig}
@@ -90,8 +90,8 @@ export class MapComponent implements OnInit {
 
         stations.map((station: any) => {
           const iconCharger = L.icon({
-            iconUrl: '../../../assets/images/ev-charge.svg',
-            iconSize: [40, 40],
+            iconUrl: '../../../assets/images/charging-station.png',
+            iconSize: [35, 35],
             iconAnchor: [16, 16],
             popupAnchor: [0, -16],
           });
