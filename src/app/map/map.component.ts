@@ -88,7 +88,7 @@ export class MapComponent implements OnInit {
 
         stations.map((station: any) => {
           const iconCharger = L.icon({
-            iconUrl: '../../../assets/images/charging-station.png',
+            iconUrl: '../../../assets/images/logo.png',
             iconSize: [35, 35],
             iconAnchor: [16, 16],
             popupAnchor: [0, -16],

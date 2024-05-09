@@ -13,6 +13,7 @@ export class AuthServiceService {
     username: 'Alfonso',
     password: 'admin',
     tipoCoche: 'Peugeot 206',
+    casa: '39.52591, -0.41552',
   };
   private _tipoCoche: string = 'Coche no disponible';
   public isLogged: boolean = true;
