@@ -7,7 +7,6 @@ import axios from 'axios';
 import { Marker } from 'leaflet';
 import { HttpClient } from '@angular/common/http';
 import { ChargingStationComponent } from '../charging-station/charging-station.component';
-import { Input } from '@angular/core';
 
 @Component({
   selector: 'app-example',
@@ -50,6 +49,7 @@ export class MapComponent implements OnInit {
   routes: any[] = [];
   chargingStations: any[] = [];
   use: any = 0;
+  ubicacionesSeleccionadas: any[] = [];
 
   constructor(private http: HttpClient) {}
 

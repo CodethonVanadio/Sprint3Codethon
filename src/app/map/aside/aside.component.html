@@ -1,5 +1,5 @@
 <main>
-  <hr />
+  <hr (click)="esconderAside()"/>
 
   <h4>
     <ng-container *ngIf="this.isLogged; else noCarAvailable">
@@ -9,61 +9,59 @@
   </h4>
 
   <div class="pathing">
-    <div class="ubi">
-      <input
-        type="text"
-        placeholder="Ubicación"
-        [value]="nombreUbicacionActual"
-        disabled
-      />
-      <a href=""><i class="bi bi-arrow-90deg-up arrow"></i></a>
-    </div>
-    <ul>
-      <!-- <li *ngFor="let calle of routes; let i = index; let isFirst = first">
-        <input type="text" [value]="calle.name" />
-      </li> -->
-      <li *ngFor="let calle of routes; let i = index; let isFirst = first">
-        <input type="text" [value]="calle" disabled />
-      </li>
-
-      <!--
+    <div id="aside" >
+      <h4 class="border-none-title">Ubicación actual</h4>
+      <div class="ubi">
         <input
           type="text"
-          placeholder="{{ nombreCalle }}"
-          value="{{ nombreCalle }}"
+          placeholder="Ubicación"
+          [value]="nombreUbicacionActual"
+          disabled
         />
-        <a href=""><i class="bi bi-node-minus"></i></a>
-      </li>
-      <li>
-        <input type="text" placeholder="Parada 2" />
-        <a href=""><i class="bi bi-node-minus"></i></a>
-      </li>
-      <li>
-        <input type="text" placeholder="Parada 3" />
-        <a href=""><i class="bi bi-node-minus"></i></a>
-      </li> -->
-    </ul>
+        <a href=""><i class="bi bi-arrow-90deg-up arrow"></i></a>
+      </div>
 
-    <input [(ngModel)]="query" (keyup.enter)="searchLocation(query)" placeholder="Añadir ubicación">
+      <h4 class="border-none-title">Paradas</h4>
 
-    <!-- Resultados de la búsqueda -->
-    <div *ngIf="locations && locations.length > 0">
-      <ul id="searchLocation">
-        <li *ngFor="let ubicacion of locations" (click)="selectLocation(ubicacion.display_name)" (click)="searchLocation('')">
-          {{ ubicacion.display_name }}
+      <input
+        [(ngModel)]="query"
+        (keyup.enter)="searchLocation(query)"
+        placeholder="Añadir parada"
+      />
+
+      <!-- Resultados de la búsqueda -->
+      <div *ngIf="locations && locations.length > 0">
+        <ul id="searchLocation">
+          <li
+            *ngFor="let ubicacion of locations"
+            (click)="searchLocation('')"
+            (click)="selectLocation(ubicacion.display_name)"
+          >
+            {{ ubicacion.display_name }}
+          </li>
+        </ul>
+      </div>
+
+      <ul>
+        <li *ngFor="let calle of routes; let i = index; let isFirst = first">
+          <input type="text" [value]="calle" disabled />
         </li>
       </ul>
-    </div>
 
-    <!-- Campo de entrada deshabilitado con el valor seleccionado -->
-    <div class="parada" *ngFor="let location of selectedLocations; let i = index">
-      <input [value]="location" [disabled]="true" placeholder="Escribe aquí">
-    </div>
+      <!-- Campo de entrada deshabilitado con el valor seleccionado -->
+      <ul>
+        <li
+          class="parada"
+          *ngFor="let location of selectedLocations; let i = index"
+        >
+          <input [value]="location" [disabled]="true" />
+        </li>
+      </ul>
 
-    <div class="plus">
-      <a href=""><i class="bi bi-plus-circle"></i></a>
+      <div class="plus">
+        <a href=""><i class="bi bi-plus-circle"></i></a>
+      </div>
     </div>
-
     <a class="startRoute" href="">Comenzar Ruta</a>
     <a class="closestCharger" href="">Cargador mas cercano</a>
   </div>

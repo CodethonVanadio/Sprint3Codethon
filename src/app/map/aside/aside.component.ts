@@ -38,26 +38,46 @@ export class AsideComponent implements OnInit{
  
   searchLocation(query: string): void {
     this.query = query;
-    this.http.get(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`)
-    .subscribe((response: any) => {
+    // Suponiendo que tienes acceso a la latitud y longitud de tu ubicación actual
+    const latitudActual = 39.5015900; // Reemplaza con la latitud de tu ubicación actual
+    const longitudActual = -0.4475116; // Reemplaza con la longitud de tu ubicación actual
+  
+    this.http.get(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&near=${latitudActual},${longitudActual}&zoom=18`)
+     .subscribe((response: any) => {
         this.locations = response;
-        // Suponiendo que cada ubicación tiene un nombre único, puedes asignar el primer resultado a selectedLocation
-        if (this.locations.length > 0) {
-          this.selectedLocation = this.locations[0].display_name;
-          this.isInputDisabled = true;
-        }
+        // Ordenar las ubicaciones por distancia aproximada
+        this.locations.sort((a, b) => {
+          const lat1 = parseFloat(a.lat);
+          const lon1 = parseFloat(a.lon);
+          const lat2 = parseFloat(b.lat);
+          const lon2 = parseFloat(b.lon);
+  
+          const dLat = lat2 - lat1;
+          const dLon = lon2 - lon1;
+  
+          const d = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                    Math.cos(lat1) * Math.cos(lat2) *
+                    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+          const c = 2 * Math.atan2(Math.sqrt(d), Math.sqrt(1 - d));
+  
+          const distance = 6371 * c; // Distancia en kilómetros
+          return distance; // Devuelve 0 para mantener el orden original si las distancias son iguales
+        
+        });
       }, error => {
         console.error('Error al buscar ubicaciones:', error);
       });
   }
 
   ngOnInit() {
-    const latitud = 39.4966641;
-    const longitud = -0.4219535;
+    const latitud = 40.4245;
+    const longitud = -3.6841;
 
     this.buscarNombreUbicacion(latitud, longitud);
 
     console.log(this.selectedCoordenadas);
+    console.log(this.selectedLocations);
+
   }
 
   buscarNombreUbicacion(latitud: number, longitud: number): void {
@@ -89,6 +109,10 @@ export class AsideComponent implements OnInit{
       });
   }
 
+  esconderAside(){
+    let aside = document.getElementById("aside");
+    aside?.classList.toggle("hide");
+  }
 
   get tipoCoche(): string {
     return this.sharedService.tipoCoche;
