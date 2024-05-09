@@ -17,6 +17,7 @@ main {
 
 ul {
   list-style-type: none;
+  margin-bottom: 2rem;
 }
 
 .plus {
@@ -56,16 +57,16 @@ hr {
   cursor: pointer;
 }
 
-.hide{
+.hide {
   display: none;
 }
 
-hr:hover{
+hr:hover {
   border: 3px solid white;
 }
 
 h4,
-.ubi{
+.ubi {
   border-bottom: 2px solid var(--secondary-green);
   padding: 7px 0;
   text-align: center;
@@ -118,46 +119,46 @@ li a {
   color: var(--secondary-green);
 }
 
-#searchLocation{
+#searchLocation {
   width: 100%;
   max-height: 150px;
   overflow-y: auto;
 }
 
-
-
-#searchLocation::-webkit-scrollbar{
-  width: 8px;               /* width of the entire scrollbar */
+#searchLocation::-webkit-scrollbar {
+  width: 8px; /* width of the entire scrollbar */
 }
 
-#searchLocation::-webkit-scrollbar-track, main::-webkit-scrollbar-track {
-  background: lightgrey;        /* color of the tracking area */
-  border-radius: 20px; 
+#searchLocation::-webkit-scrollbar-track,
+main::-webkit-scrollbar-track {
+  background: lightgrey; /* color of the tracking area */
+  border-radius: 20px;
 }
 
-#searchLocation::-webkit-scrollbar-thumb, main::-webkit-scrollbar-thumb {
-  background-color: var(--secondary-green);    /* color of the scroll thumb */
-  border-radius: 20px; 
+#searchLocation::-webkit-scrollbar-thumb,
+main::-webkit-scrollbar-thumb {
+  background-color: var(--secondary-green); /* color of the scroll thumb */
+  border-radius: 20px;
 }
 
-main::-webkit-scrollbar{
+main::-webkit-scrollbar {
   width: 5px;
 }
 
-#searchLocation li{
+#searchLocation li {
   max-width: 350px;
   color: black;
   cursor: pointer;
 }
 
-#searchLocation li:hover{
+#searchLocation li:hover {
   font-weight: bold;
 }
 
-.border-none-title{
+.border-none-title {
   border-bottom: none;
 }
 
-.plus{
+.plus {
   text-align: center;
 }
