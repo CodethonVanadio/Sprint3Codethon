@@ -20,9 +20,9 @@ export class AsideComponent {
   @Input() latitud2: any = '';
   @Input() nombreCalle: any = '';
   @Input() routes: any = '';
-
-  get tipoCoche(): string {
-    return this.sharedService.tipoCoche;
+  tipoCoche: string = '';
+  ngOnInit(): void {
+    this.tipoCoche = this.sharedService.tipoCoche;
   }
 
   get isLogged(): boolean {

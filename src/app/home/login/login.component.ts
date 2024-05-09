@@ -15,7 +15,7 @@ export class LoginComponent {
   username: string = '';
   password: string = '';
   userLogged: boolean = false;
-  tipoCoche: string = ' ';
+  tipoCoche: string = '';
 
   constructor(
     private authService: AuthServiceService,
@@ -25,12 +25,10 @@ export class LoginComponent {
   onSubmit(): void {
     if (this.authService.authenticate(this.username, this.password)) {
       this.userLogged = true;
-      if (this.userLogged) {
-        this.authService.tipoCoche = this.tipoCoche = 'Kia e-Niro';
-        this.router.navigate(['/map']);
-      }
-    } else if (!this.userLogged) {
-      this.authService.tipoCoche = this.tipoCoche = 'Coche no seleccionado';
+      this.tipoCoche = this.authService.tipoCoche;
+      this.authService.tipoCoche = this.tipoCoche;
+      this.router.navigate(['/map']);
+    } else {
       alert('Credenciales incorrectas');
     }
   }
