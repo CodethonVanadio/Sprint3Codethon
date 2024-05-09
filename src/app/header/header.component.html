@@ -1,0 +1,23 @@
+<nav>
+  <ul>
+    <div class="marca">
+      <li><img src="../../../assets/images/logo.svg" alt="" /></li>
+      <li>
+        <a href="/map"><h3>VoltPath</h3></a>
+      </li>
+    </div>
+    <div class="buttons">
+      <ng-container *ngIf="this.isLogged; else logIn">
+        {{ iniciaSesion }}
+        <button class="log" (click)="this.logOut()">
+          LogOut
+        </button></ng-container
+      >
+      <ng-template #logIn>
+        <li>
+          <a class="log" href="/login" value="{}">Iniciar Sesion</a>
+        </li>
+      </ng-template>
+    </div>
+  </ul>
+</nav>

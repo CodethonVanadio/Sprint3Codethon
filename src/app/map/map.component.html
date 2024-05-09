@@ -3,13 +3,10 @@
   <main>
     <app-aside
       class="aside"
-      [longitud]="longitud"
-      [latitud]="latitud"
-      [nombreCalle]="nombreCalle"
+      [ubicacion]="ubicacion"
       [routes]="routes"
-      [longitud2]="longitud2"
-      [latitud2]="latitud2"
-
+      (encontrarCargadores)="encontrarCargadores($event)"
+      (calculateRoute)="calculateRoute($event)"
     ></app-aside>
     <div class="map" id="map"></div>
   </main>

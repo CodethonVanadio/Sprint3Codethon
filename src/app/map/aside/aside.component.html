@@ -1,5 +1,5 @@
 <main>
-  <hr />
+  <hr (click)="esconderAside()"/>
 
   <h4>
     <ng-container *ngIf="this.isLogged; else noCarAvailable">
@@ -9,29 +9,60 @@
   </h4>
 
   <div class="pathing">
-    <div class="ubi">
+    <div id="aside" >
+      <h4 class="border-none-title">Ubicación actual</h4>
+      <div class="ubi">
+        <input
+          type="text"
+          placeholder="Ubicación"
+          [value]="nombreUbicacionActual"
+          disabled
+        />
+        <a href=""><i class="bi bi-arrow-90deg-up arrow"></i></a>
+      </div>
+
+      <h4 class="border-none-title">Paradas</h4>
+
       <input
-        type="text"
-        placeholder="Ubicación"
-        value="Tu Ubicacion"
-        disabled
+        [(ngModel)]="query"
+        (keyup.enter)="searchLocation(query)"
+        placeholder="Añadir parada"
       />
-      <a href=""><i class="bi bi-arrow-90deg-up arrow"></i></a>
+
+      <!-- Resultados de la búsqueda -->
+      <div *ngIf="locations && locations.length > 0">
+        <ul id="searchLocation">
+          <li
+            *ngFor="let ubicacion of locations"
+            (click)="searchLocation('')"
+            (click)="selectLocation(ubicacion.display_name)"
+          >
+            {{ ubicacion.display_name }}
+          </li>
+        </ul>
+      </div>
+
+      <ul>
+        <li *ngFor="let calle of routes; let i = index; let isFirst = first">
+          <input type="text" [value]="calle" disabled />
+        </li>
+      </ul>
+
+      <!-- Campo de entrada deshabilitado con el valor seleccionado -->
+      <ul>
+        <li
+          class="parada"
+          *ngFor="let location of selectedLocations; let i = index"
+        >
+          <input [value]="location" [disabled]="true" />
+        </li>
+      </ul>
+
+      <div class="plus">
+        <a href=""><i class="bi bi-plus-circle"></i></a>
+      </div>
     </div>
-    <ul>
-
-      <li *ngFor="let calle of routes; let i = index; let isFirst = first">
-        <input type="text" [value]="calle" disabled />
-      </li>
-
-    
-    </ul>
-
-    <div class="plus">
-      <a href=""><i class="bi bi-plus-circle"></i></a>
-    </div>
-
-    <a class="startRoute" href="">Comenzar Ruta</a>
+    <a class="startRoute" (click)="comenzarRuta()">Comenzar Ruta</a>
     <a class="closestCharger" href="">Cargador mas cercano</a>
   </div>
 </main>

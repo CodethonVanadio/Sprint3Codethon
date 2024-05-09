@@ -14,7 +14,7 @@ import { AuthServiceService } from '../../auth-service.service';
 export class LoginComponent {
   username: string = '';
   password: string = '';
-  userLogged: boolean = false;
+  isLogged: boolean = false;
   tipoCoche: string = '';
 
   constructor(
@@ -24,10 +24,8 @@ export class LoginComponent {
 
   onSubmit(): void {
     if (this.authService.authenticate(this.username, this.password)) {
-      this.userLogged = true;
-      this.tipoCoche = this.authService.tipoCoche;
-      this.authService.tipoCoche = this.tipoCoche;
       this.router.navigate(['/map']);
+      this.isLogged = true;
     } else {
       alert('Credenciales incorrectas');
     }
