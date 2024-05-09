@@ -4,15 +4,38 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AuthServiceService {
-  private readonly fakeUser = { username: 'admin', password: 'admin' };
-  public tipoCoche: string = 'Coche no disponible';
-  public isLogged: boolean = true;
+  private readonly users: { [key: string]: any } = {
+    admin: {
+      username: 'Admin',
+      password: 'admin',
+      tipoCoche: 'KIA e-Niro',
+    },
+    alfonso: {
+      username: 'Alfonso',
+      password: 'admin',
+      tipoCoche: 'Peugeot 206',
+      casa: '39.52591, -0.41552',
+    },
+  };
+  public user: any = null;
+  public isLogged: boolean = false;
 
   constructor() {}
 
   authenticate(username: string, password: string): boolean {
-    return (
-      username == this.fakeUser.username && password == this.fakeUser.password
-    );
+    const user = this.users[username];
+
+    if (user && user.password == password) {
+      this.user = user;
+      this.isLogged = true;
+    } else {
+      this.isLogged = false;
+    }
+    return this.isLogged;
+  }
+
+  logOut() {
+    this.isLogged = false;
+    this.user = null;
   }
 }

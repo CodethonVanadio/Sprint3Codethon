@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ChargingStationComponent } from '../charging-station/charging-station.component';
-import { HeaderComponent } from '../map/header/header.component';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-info',

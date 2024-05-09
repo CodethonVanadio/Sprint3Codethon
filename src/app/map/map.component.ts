@@ -1,12 +1,13 @@
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from '../header/header.component';
 import { Component, OnInit } from '@angular/core';
-import * as L from 'leaflet';
+declare const L: any;
+import 'leaflet';
 import 'leaflet-routing-machine';
 import { AsideComponent } from './aside/aside.component';
 import axios from 'axios';
-import { Marker } from 'leaflet';
 import { HttpClient } from '@angular/common/http';
 import { ChargingStationComponent } from '../charging-station/charging-station.component';
+import { Coordenada } from '../intefaces';
 
 @Component({
   selector: 'app-example',
@@ -39,10 +40,13 @@ export class MapComponent implements OnInit {
   map: any;
   longitud: any = 0;
   latitud: any = 0;
+  ubicacion: Coordenada = {
+    latitud: 0,
+    longitud: 0,
+  };
   longitud2: any = 0;
   latitud2: any = 0;
   taxiIcon: any;
-  markers: Marker[] = [];
   marker: any = L.marker([0, 0]);
   searchLocation: any;
   nombreCalle: any;
@@ -58,30 +62,13 @@ export class MapComponent implements OnInit {
   }
 
   fetchPosts(latOrig: any, lngOrig: any, latDes: any, lngDes: any) {
-    /* const bbox = `${latOrig},${lngOrig}),(${latDes},${lngDes}`; */
-    const url = `http://localhost:8989/saludo`;
+    const url = `https://backend-tzzg.onrender.com/saludo`;
     const urlWithParams = url.concat(
       `?latitudOrigen=${latOrig}
       &longitudOrigen=${lngOrig}
       &latitudDestino=${latDes}
       &longitudDestino=${lngDes}`
     );
-    // const url = `https://api.openchargemap.io/v3/poi/?client=ocm.app.ionic.8.6.1&verbose=false&output=json&includecomments=true&maxresults=40&compact=true&boundingbox=(${bbox})&key=53f3079e-75c6-40eb-bc30-8b8792c9602f`;
-
-    const Icon = {
-      iconUrl: '../../../assets/images/map-pin.svg',
-      shadowUrl: '../../../assets/images/map-pin.svg',
-      iconRetinaUrl: '../../../assets/images/map-pin.svg',
-
-      iconSize: [40, 40],
-      iconAnchor: [16, 16],
-      popupAnchor: [0, -16],
-      shadowSize: [40, 40],
-    };
-
-    L.icon.prototype = Icon;
-
-    L.Icon.Default.mergeOptions(Icon);
 
     axios
       .get(urlWithParams)
@@ -90,8 +77,8 @@ export class MapComponent implements OnInit {
 
         stations.map((station: any) => {
           const iconCharger = L.icon({
-            iconUrl: '../../../assets/images/ev-charge.svg',
-            iconSize: [40, 40],
+            iconUrl: '../../../assets/images/charging-station.png',
+            iconSize: [35, 35],
             iconAnchor: [16, 16],
             popupAnchor: [0, -16],
           });
@@ -119,6 +106,51 @@ export class MapComponent implements OnInit {
       });
   }
 
+  encontrarCargadores(selectedCoordenadas: Coordenada[]) {
+    for (let i = 0; i < selectedCoordenadas.length + 1; i++) {
+      let latitud1 = selectedCoordenadas[i].latitud;
+      let longitud1 = selectedCoordenadas[i].longitud;
+      let latitud2 = selectedCoordenadas[i + 1].latitud;
+      let longitud2 = selectedCoordenadas[i + 1].longitud;
+
+      this.fetchPosts(latitud1, longitud1, latitud2, longitud2);
+    }
+  }
+
+  calculateRoute(coordenadas: Coordenada[]): void {
+    this.printMarker(coordenadas[1]);
+    this.createRoute(coordenadas[0], coordenadas[1]);
+  }
+
+  printMarker(coordenada: Coordenada): void {
+    const markerIcon = L.icon({
+      iconUrl: '../../../assets/images/map-pin.svg',
+
+      iconSize: [40, 40],
+      iconAnchor: [10, 40],
+      popupAnchor: [0, -16],
+      shadowSize: [40, 40],
+    });
+
+    const newMarker = L.marker([coordenada.latitud, coordenada.longitud], {
+      icon: markerIcon,
+      draggable: false,
+    }).addTo(this.map);
+  }
+
+  createRoute(coordenadaOrig: Coordenada, coordenadaDest: Coordenada): void {
+    L.Routing.control({
+      waypoints: [
+        L.latLng(coordenadaOrig.latitud, coordenadaOrig.longitud),
+        L.latLng(coordenadaDest.latitud, coordenadaDest.longitud),
+      ],
+      createMarker: function () {
+        return null;
+      },
+    })
+    .addTo(this.map);
+  }
+
   initMap(): void {
     const baseMapLayer = L.tileLayer(
       'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -138,6 +170,10 @@ export class MapComponent implements OnInit {
           this.latitud = latitude;
           const longitude = position.coords.longitude;
           this.longitud = longitude;
+          this.ubicacion = {
+            latitud: this.latitud,
+            longitud: this.longitud,
+          };
 
           this.map = L.map('map')
             .setView([latitude, longitude], 13)
@@ -163,68 +199,6 @@ export class MapComponent implements OnInit {
             .addTo(this.map)
             .bindPopup('Usted se encuentra aquí')
             .openPopup();
-          const markerIcon = L.icon({
-            iconUrl: '../../../assets/images/map-pin.svg',
-            shadowUrl: '../../../assets/images/map-pin.svg',
-            iconRetinaUrl: '../../../assets/images/map-pin.svg',
-
-            iconSize: [40, 40],
-            iconAnchor: [16, 16],
-            popupAnchor: [0, -16],
-            shadowSize: [40, 40],
-          });
-          this.map.on('click', (e: any) => {
-            console.log(e);
-            const newMarker = L.marker([e.latlng.lat, e.latlng.lng], {
-              icon: markerIcon,
-              draggable: false,
-            }).addTo(this.map);
-
-            this.markers.push(newMarker);
-
-            newMarker.on('dragend', (event) => {
-              const latlng = event.target.getLatLng();
-              newMarker.setLatLng(latlng);
-            });
-            L.Routing.control({
-              waypoints: [
-                L.latLng(this.latitud, this.longitud),
-                L.latLng(e.latlng.lat, e.latlng.lng),
-              ],
-            })
-              .on('routesfound', (e: any) => {
-                const route = e.routes[0];
-                const nextLat =
-                  route.coordinates[route.coordinates.length - 1].lat;
-                const nextLng =
-                  route.coordinates[route.coordinates.length - 1].lng;
-
-                this.fetchPosts(this.latitud, this.longitud, nextLat, nextLng);
-
-                this.latitud = nextLat;
-                this.longitud = nextLng;
-
-                // console.log(routes);
-                const name = route.name;
-                this.routes.push(name);
-
-                // console.log(name);
-                // const distance = routes[0].summary.totalDistance;
-                // console.log(distance);
-
-                // e.routes[0].coordinates.forEach((coord: any, index: any) => {
-                //   this.routes = routes;
-                //   setTimeout(() => {
-                //     this.marker.setLatLng([coord.lat, coord.lng], {
-                //       draggable: true,
-                //     });
-                //   }, 100 * index);
-                // });
-              })
-              .addTo(this.map);
-            this.markers.push(newMarker);
-            console.log(this.markers);
-          });
         },
         (error) => {
           console.error('Error al obtener la ubicación del usuario:', error);

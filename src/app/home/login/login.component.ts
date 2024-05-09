@@ -14,8 +14,8 @@ import { AuthServiceService } from '../../auth-service.service';
 export class LoginComponent {
   username: string = '';
   password: string = '';
-  userLogged: boolean = false;
-  tipoCoche: string = ' ';
+  isLogged: boolean = false;
+  tipoCoche: string = '';
 
   constructor(
     private authService: AuthServiceService,
@@ -24,13 +24,9 @@ export class LoginComponent {
 
   onSubmit(): void {
     if (this.authService.authenticate(this.username, this.password)) {
-      this.userLogged = true;
-      if (this.userLogged) {
-        this.authService.tipoCoche = this.tipoCoche = 'Opel Corsa';
-        this.router.navigate(['/map']);
-      }
-    } else if(!this.userLogged){
-      this.authService.tipoCoche = this.tipoCoche = 'Coche no seleccionado';
+      this.router.navigate(['/map']);
+      this.isLogged = true;
+    } else {
       alert('Credenciales incorrectas');
     }
   }
