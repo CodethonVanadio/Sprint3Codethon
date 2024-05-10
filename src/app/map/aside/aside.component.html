@@ -1,5 +1,5 @@
 <main>
-  <hr (click)="esconderAside()"/>
+  <hr (click)="esconderAside()" />
 
   <h4>
     <ng-container *ngIf="this.isLogged; else noCarAvailable">
@@ -9,7 +9,7 @@
   </h4>
 
   <div class="pathing">
-    <div id="aside" >
+    <div id="aside">
       <h4 class="border-none-title">Ubicación actual</h4>
       <div class="ubi">
         <input
@@ -58,11 +58,11 @@
         </li>
       </ul>
 
-     <!--  <div class="plus">
+      <!--  <div class="plus">
         <a href=""><i class="bi bi-plus-circle"></i></a>
       </div> -->
     </div>
     <a class="startRoute" (click)="comenzarRuta()">Comenzar Ruta</a>
-    <a class="closestCharger" href="">Cargador mas cercano</a>
+    <a class="closestCharger">Cargador mas cercano</a>
   </div>
 </main>

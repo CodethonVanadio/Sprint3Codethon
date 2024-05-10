@@ -40,11 +40,15 @@ ul {
 }
 
 .closestCharger {
+  color: var(--accent-orange);
+  border: 2px solid var(--accent-orange);
+  cursor: pointer;
+}
+.closestCharger:hover {
   color: var(--secondary-green);
   border: 2px solid var(--secondary-green);
 }
 
-.closestCharger:hover,
 .startRoute:hover {
   color: var(--accent-orange);
   border: 2px solid var(--accent-orange);
