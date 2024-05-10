@@ -77,8 +77,8 @@ export class MapComponent implements OnInit {
 
         stations.map((station: any) => {
           const iconCharger = L.icon({
-            iconUrl: '../../../assets/images/charging-station.png',
-            iconSize: [35, 35],
+            iconUrl: '../../../assets/images/IconoCharger3.png',
+            iconSize: [60, 55],
             iconAnchor: [16, 16],
             popupAnchor: [0, -16],
           });
@@ -124,7 +124,7 @@ export class MapComponent implements OnInit {
 
   printMarker(coordenada: Coordenada): void {
     const markerIcon = L.icon({
-      iconUrl: '../../../assets/images/map-pin.svg',
+      iconUrl: '../../../assets/images/location.png',
 
       iconSize: [40, 40],
       iconAnchor: [10, 40],
@@ -147,8 +147,7 @@ export class MapComponent implements OnInit {
       createMarker: function () {
         return null;
       },
-    })
-    .addTo(this.map);
+    }).addTo(this.map);
   }
 
   initMap(): void {
