@@ -80,7 +80,7 @@ export class MapComponent implements OnInit {
             iconUrl: '../../../assets/images/IconoCharger3.png',
             iconSize: [60, 55],
             iconAnchor: [16, 16],
-            popupAnchor: [0, -16],
+            popupAnchor: [90, -16],
           });
 
           const marker = L.marker([station.latitud, station.longitud], {
@@ -90,13 +90,29 @@ export class MapComponent implements OnInit {
             .setIcon(iconCharger)
             .addTo(this.map)
             .bindPopup(
-              `<div class="infoCharger" style="color: red">
-                            <h3>Nombre :</h3> ${station.nombre}
-                            <h3>Coste de uso:</h3> ${
-                              station.precio ? station.precio : 'desconocido'
-                            }
-                            <h3>Dirección:</h3> ${station.direccion}
-                        </div>`
+              `<div class="infoCharger" style="color: white">
+              <div class="division" style="display:flex; justify-content: space-around; align-items: center; ">
+                  <div style="margin-right: 10px;">
+                      <img src="../../../assets/images/image16.png" alt="Division1" style="width: 45px; height: 45px;">
+                  </div>
+                  <div style="background-color: white; padding: 50px 30px 70px 30px; margin-right:0; border-radius:5px">
+                      <img src="../../../assets/images/image15.png" alt="Division1" style="width: 55px; height: 35px;">
+                  </div>
+              </div>
+              <div style="display: flex; align-items: center;">
+                  <img src="../../../assets/images/image19.png" alt="Nombre" style="width: 35px; height: 35px; margin-right: 10px;">
+                  <span>${station.nombre}</span>
+              </div>
+              <div style="display: flex; align-items: center;">
+                  <img src="../../../assets/images/image18.png" alt="Coste de uso" style="width: 35px; height: 35px; margin-right: 10px;">
+                  <span>${station.precio ? station.precio : 'desconocido'}</span>
+              </div>
+              <div style="display: flex; align-items: center;">
+                  <img src="../../../assets/images/image17.png" alt="Dirección" style="width: 35px; height: 35px; margin-right: 10px;">
+                  <span>${station.direccion}</span>
+              </div>
+          </div>
+          `
             )
             .openPopup();
         });

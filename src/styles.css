@@ -79,8 +79,18 @@ a {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  background: linear-gradient(0.31deg, #0A4A3D 0.13%, #4BCDA6 99.6%);
+  padding: 10px;
+  border-radius: 10px;
 }
-
+.division{
+  margin-left: -10px;
+  margin-right: -10px;
+  margin-top: -10px;
+}
+.infoCharger img {
+  size: 2px;
+}
 .startRoute {
   cursor: pointer;
 }
