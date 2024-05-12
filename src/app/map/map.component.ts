@@ -80,7 +80,7 @@ export class MapComponent implements OnInit {
             iconUrl: '../../../assets/images/IconoCharger3.png',
             iconSize: [60, 55],
             iconAnchor: [16, 16],
-            popupAnchor: [90, -16],
+            popupAnchor: [12, -16],
           });
 
           const marker = L.marker([station.latitud, station.longitud], {
