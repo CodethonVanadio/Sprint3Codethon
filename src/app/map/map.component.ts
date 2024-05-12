@@ -91,29 +91,32 @@ export class MapComponent implements OnInit {
             .addTo(this.map)
             .bindPopup(
               `<div class="infoCharger" style="color: white">
-              <div class="division" style="display:flex; justify-content: space-between; align-items: center; ">
-                  <div style="padding: 30px 30px 10px 30px;">
-                      <img src="../../../assets/images/image16.png" alt="Division1" style="max-width: 45px; max-height: 45px;">
+              <div class="division">
+                  <div class="pestanyaCharger" >
+                      <img src="../../../assets/images/image16.png" alt="Division1" style="">
                   </div>
-                  <div style="background: linear-gradient(0.33deg, #FAC03E 0.29%, #A21325 99.71%);
-                  ; padding: 50px 30px 70px 30px; border-radius: 5px;">
-                      <img src="../../../assets/images/image15.png" alt="Division1" style="max-width: 55px; max-height: 35px;">
+                  <div class="pestanyaRepsol" >
+                      <a href="https://www.guiarepsol.com/es/valencia/comer-y-beber/" target="_blank"><img src="../../../assets/images/image15.png" alt="Division1" style="max-width: 55px; max-height: 35px;"></a>
                   </div>
               </div>
-              <div style="display: flex; align-items: center;">
-                  <img src="../../../assets/images/image19.png" alt="Nombre" style="width: 35px; height: 35px; margin-right: 10px;">
+              <div class="conjuntoStats" >
+              <div class="statsCharger" >
+                  <img src="../../../assets/images/image19.png" alt="Nombre">
                   <span>${station.nombre}</span>
               </div>
-              <div style="display: flex; align-items: center;">
-                  <img src="../../../assets/images/image18.png" alt="Coste de uso" style="width: 35px; height: 35px; margin-right: 10px;">
-                  <span>${station.precio ? station.precio : 'desconocido'}</span>
+              <div class="statsCharger" >
+                  <img src="../../../assets/images/image18.png" alt="Coste de uso">
+                  <span>${
+                    station.precio ? station.precio : 'desconocido'
+                  }</span>
               </div>
-              <div style="display: flex; align-items: center;">
-                  <img src="../../../assets/images/image17.png" alt="Dirección" style="width: 35px; height: 35px; margin-right: 10px;">
+              <div class="statsCharger">
+                  <img src="../../../assets/images/image17.png" alt="Dirección">
                   <span>${station.direccion}</span>
               </div>
+              </div>
           </div>
-          
+
           `
             )
             .openPopup();

@@ -79,16 +79,81 @@ a {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  background: linear-gradient(0.31deg, #0A4A3D 0.13%, #4BCDA6 99.6%);
+  background: linear-gradient(0.31deg, #0a4a3d 0.13%, #4bcda6 99.6%);
   padding: 10px;
   border-radius: 10px;
 }
-.division{
+.division {
   margin-left: -10px;
   margin-right: -10px;
   margin-top: -10px;
   padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 5rem;
 }
+
+.pestanyaCharger {
+  padding: 30px 30px 10px 30px;
+
+  & img {
+    max-width: 45px;
+    max-height: 45px;
+    margin-left: 1.5rem;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+  }
+
+  & img:hover {
+    transform: scale(1.05);
+  }
+}
+
+.pestanyaRepsol {
+  background: linear-gradient(0.33deg, #fac03e 0.29%, #a21325 99.71%);
+  padding: 1rem;
+  margin-top: 0.6rem;
+  border-radius: 5px;
+  height: 5rem;
+  width: 50%;
+  display: flex;
+  align-items: center;
+
+  & img, a {
+    margin: 0 auto;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+  }
+
+  & img:hover {
+    transform: scale(1.05);
+  }
+}
+
+/* .infoCharger{
+
+} */
+
+.conjuntoStats {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin: 1.5rem;
+}
+
+.statsCharger {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  & img {
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+  }
+}
+
 .infoCharger img {
   size: 2px;
 }
