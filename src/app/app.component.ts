@@ -11,5 +11,5 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'proyectoCodethon';
+  title = 'VoltPath';
 }
