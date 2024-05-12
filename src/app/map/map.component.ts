@@ -91,12 +91,13 @@ export class MapComponent implements OnInit {
             .addTo(this.map)
             .bindPopup(
               `<div class="infoCharger" style="color: white">
-              <div class="division" style="display:flex; justify-content: space-around; align-items: center; ">
-                  <div style="margin-right: 10px;">
-                      <img src="../../../assets/images/image16.png" alt="Division1" style="width: 45px; height: 45px;">
+              <div class="division" style="display:flex; justify-content: space-between; align-items: center; ">
+                  <div style="padding: 30px 30px 10px 30px;">
+                      <img src="../../../assets/images/image16.png" alt="Division1" style="max-width: 45px; max-height: 45px;">
                   </div>
-                  <div style="background-color: white; padding: 50px 30px 70px 30px; margin-right:0; border-radius:5px">
-                      <img src="../../../assets/images/image15.png" alt="Division1" style="width: 55px; height: 35px;">
+                  <div style="background: linear-gradient(0.33deg, #FAC03E 0.29%, #A21325 99.71%);
+                  ; padding: 50px 30px 70px 30px; border-radius: 5px;">
+                      <img src="../../../assets/images/image15.png" alt="Division1" style="max-width: 55px; max-height: 35px;">
                   </div>
               </div>
               <div style="display: flex; align-items: center;">
@@ -112,6 +113,7 @@ export class MapComponent implements OnInit {
                   <span>${station.direccion}</span>
               </div>
           </div>
+          
           `
             )
             .openPopup();

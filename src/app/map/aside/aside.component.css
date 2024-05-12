@@ -6,6 +6,7 @@ main {
   backdrop-filter: blur(15px);
   max-height: 80vh;
   overflow-y: auto;
+  margin-bottom: 20%;
 }
 
 .pathing {
