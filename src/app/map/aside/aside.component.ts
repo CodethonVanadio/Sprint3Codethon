@@ -27,7 +27,7 @@ export class AsideComponent implements OnInit {
   @Input() routes: any = '';
   @Input() ubicacion: Coordenada = {
     latitud: 0,
-    longitud: 0
+    longitud: 0,
   };
   @Input() funcionArreu: any = '';
   @Output() encontrarCargadores = new EventEmitter<Coordenada[]>();
@@ -88,7 +88,11 @@ export class AsideComponent implements OnInit {
     this.tipoCoche = this.authService.user.tipoCoche;
   }
   ngOnChanges() {
-    if(this.ubicacion.latitud !== 0 && this.ubicacion.longitud !== 0 && !this.selectedCoordenadas.includes(this.ubicacion)) {
+    if (
+      this.ubicacion.latitud !== 0 &&
+      this.ubicacion.longitud !== 0 &&
+      !this.selectedCoordenadas.includes(this.ubicacion)
+    ) {
       this.selectedCoordenadas.push(this.ubicacion);
     }
     this.buscarNombreUbicacion(this.ubicacion.latitud, this.ubicacion.longitud);
@@ -123,25 +127,39 @@ export class AsideComponent implements OnInit {
       )
       .subscribe(
         (response: any) => {
-          const {lat, lon} = response[0];
+          const { lat, lon } = response[0];
           const coordenada: Coordenada = {
             latitud: lat,
             longitud: lon,
           };
           this.selectedCoordenadas.push(coordenada);
-          const index = this.selectedCoordenadas.findIndex((coord) => coord === coordenada);
-          this.calculateRoute.emit([this.selectedCoordenadas[index - 1], coordenada]);
+          const index = this.selectedCoordenadas.findIndex(
+            (coord) => coord === coordenada
+          );
+          this.calculateRoute.emit([
+            this.selectedCoordenadas[index - 1],
+            coordenada,
+          ]);
         },
         (error) => {
           console.error('Error al buscar ubicaciones:', error);
         }
       );
   }
-
-  esconderAside() {
-    let aside = document.getElementById('aside');
+  esconderAside(): void {
+    let aside: HTMLElement | null = document.getElementById('aside');
     aside?.classList.toggle('hide');
+    let asidePadre: HTMLElement | null = document.getElementById('asidePadre');
+    if (asidePadre && aside) {
+      // Check if asidePadre is not null
+      if (aside.classList.contains('hide')) {
+        asidePadre.style.top = '66%';
+      }  else {
+        asidePadre.style.top = '47%';
+      }
+    }
   }
+
   tipoCoche: string = '';
 
   get isLogged(): boolean {

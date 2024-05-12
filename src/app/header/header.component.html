@@ -11,11 +11,16 @@
         {{ iniciaSesion }}
         <button class="log" (click)="this.logOut()">
           LogOut
-        </button></ng-container
+        </button>
+        <button class="logOutImg" (click)="this.logOut()">
+          <img src="../../assets/images/user-xmark.svg" alt="">
+        </button>
+        </ng-container
       >
       <ng-template #logIn>
         <li>
           <a class="log" href="/login" value="{}">Iniciar Sesion</a>
+          <a class="logIcon" href="/login"><img src="../../assets/images/user.svg" alt=""></a>
         </li>
       </ng-template>
     </div>

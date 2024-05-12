@@ -1,7 +1,7 @@
 nav {
   border: 0;
   background-color: var(--white);
-  padding: 10px 20px;
+  padding: 15px 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   z-index: 1;
   width: 100%;
@@ -59,7 +59,36 @@ nav ul .marca a h3 {
   color: var(--accent-orange);
 }
 
+.logOutImg, .logIcon{
+  border: 0;
+  background: none;
+  display: none;
+}
+
 h3 {
   color: inherit;
   text-decoration: none;
+}
+
+
+
+@media (max-width: 768px) {
+  ul {
+    gap: 1rem;
+    padding: rem;
+  }
+
+  .log{
+    display: none;
+  }
+
+  .logOutImg{
+    border: 0;
+    background: none;
+    display: block;
+  }
+
+  .logIcon{
+    display: block;
+  }
 }
