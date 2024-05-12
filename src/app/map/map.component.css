@@ -12,16 +12,13 @@ main {
   position: absolute;
   left: 2rem;
   bottom: 2rem;
+  z-index: 9999;
 }
 
 #map {
   border: 0;
-  height: 90%;
+  height: 93%;
   width: 100%;
-  top: 10%;
 }
 
-.aside {
-  z-index: 9999;
-}
 

@@ -80,7 +80,7 @@ export class MapComponent implements OnInit {
             iconUrl: '../../../assets/images/IconoCharger3.png',
             iconSize: [60, 55],
             iconAnchor: [16, 16],
-            popupAnchor: [0, -16],
+            popupAnchor: [90, -16],
           });
 
           const marker = L.marker([station.latitud, station.longitud], {
@@ -90,13 +90,34 @@ export class MapComponent implements OnInit {
             .setIcon(iconCharger)
             .addTo(this.map)
             .bindPopup(
-              `<div class="infoCharger" style="color: red">
-                            <h3>Nombre :</h3> ${station.nombre}
-                            <h3>Coste de uso:</h3> ${
-                              station.precio ? station.precio : 'desconocido'
-                            }
-                            <h3>Dirección:</h3> ${station.direccion}
-                        </div>`
+              `<div class="infoCharger" style="color: white">
+              <div class="division">
+                  <div class="pestanyaCharger" >
+                      <img src="../../../assets/images/image16.png" alt="Division1" style="">
+                  </div>
+                  <div class="pestanyaRepsol" >
+                      <a href="https://www.guiarepsol.com/es/valencia/comer-y-beber/" target="_blank"><img src="../../../assets/images/image15.png" alt="Division1" style="max-width: 55px; max-height: 35px;"></a>
+                  </div>
+              </div>
+              <div class="conjuntoStats" >
+              <div class="statsCharger" >
+                  <img src="../../../assets/images/image19.png" alt="Nombre">
+                  <span>${station.nombre}</span>
+              </div>
+              <div class="statsCharger" >
+                  <img src="../../../assets/images/image18.png" alt="Coste de uso">
+                  <span>${
+                    station.precio ? station.precio : 'desconocido'
+                  }</span>
+              </div>
+              <div class="statsCharger">
+                  <img src="../../../assets/images/image17.png" alt="Dirección">
+                  <span>${station.direccion}</span>
+              </div>
+              </div>
+          </div>
+
+          `
             )
             .openPopup();
         });
