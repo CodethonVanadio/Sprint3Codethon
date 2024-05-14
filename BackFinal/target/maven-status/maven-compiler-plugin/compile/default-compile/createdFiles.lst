@@ -1,0 +1,12 @@
+com\example\demo\entity\ChargerInfo.class
+com\example\demo\DemoApplication.class
+com\example\demo\entity\Vehiculo.class
+com\example\demo\errors\dto\ErrorMessage.class
+com\example\demo\controller\LocalController.class
+com\example\demo\service\LocalService.class
+com\example\demo\errors\RestResponseEntityExceptionHandler.class
+com\example\demo\entity\Vehiculo$VehiculoBuilder.class
+com\example\demo\errors\LocalNotFoundException.class
+com\example\demo\controller\ChargerInfoDisplayer.class
+com\example\demo\service\LocalServiceImpl.class
+com\example\demo\repository\LocalRepository.class
